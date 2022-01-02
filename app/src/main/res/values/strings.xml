@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">My Move</string>
+    <string name="page_title">movies</string>
+    <string name="favorite">str_favorite</string>
+    <string name="content_description_favorite">contet_favorite</string>
+    <string name="search">search</string>
+    <string name="content_description_search">content_search</string>
+    <string name="more">more</string>
+    <string name="content_description_more">contet_more</string>
+    <string name="text_movie">movie</string>
+    <string name="text_my_info">my info</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
