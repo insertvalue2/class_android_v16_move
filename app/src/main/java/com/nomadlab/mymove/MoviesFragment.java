@@ -2,6 +2,8 @@ package com.nomadlab.mymove;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nomadlab.mymove.adapter.YtsAdapter;
+import com.nomadlab.mymove.databinding.FragmentMoviesBinding;
 import com.nomadlab.mymove.repository.interfaces.YtsService;
 import com.nomadlab.mymove.repository.models.Movie;
 import com.nomadlab.mymove.repository.models.YtsData;
@@ -26,8 +29,10 @@ import retrofit2.Response;
 
 public class MoviesFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager manager;
+    private FragmentMoviesBinding binding;
+
+//    RecyclerView recyclerView;
+//    RecyclerView.LayoutManager manager;
 
     private MoviesFragment() {
     }
@@ -44,15 +49,26 @@ public class MoviesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentMoviesBinding.inflate(inflater, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_movies, container, false);
-        recyclerView = view.findViewById(R.id.moviesContainer);
-        recyclerView.setHasFixedSize(true);
-        manager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(manager);
-
+////        View view = inflater.inflate(R.layout.fragment_movies, container, false);
+//        bindingrecyclerView = view.findViewById(R.id.moviesContainer);
+//        recyclerView.setHasFixedSize(true);
+//        manager = new LinearLayoutManager(getActivity());
+//        binding.set
+//        binding.recyclerView.setLayoutManager(manager);
+//
+//        rvDataSetting();
+        binding.moviesContainer.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.moviesContainer.setHasFixedSize(true);
         rvDataSetting();
-        return view;
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private void rvDataSetting(){
@@ -66,10 +82,11 @@ public class MoviesFragment extends Fragment {
             public void onResponse(Call<YtsData> call,
                                    Response<YtsData> response) {
                 YtsData yts = response.body();
-
                 adapter.addItems(yts.getData().getMovies());
-                recyclerView.setAdapter(adapter);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                binding.moviesContainer.setAdapter(adapter);
+
+//                recyclerView.setAdapter(adapter);
+//                recyclerView.setItemAnimator(new DefaultItemAnimator());
             }
 
             @Override
